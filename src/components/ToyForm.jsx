@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 
 class ToyForm extends Component {
 
+  state = {
+    name: '',
+    image: ''
+  }
+
+  nameChangeHandler = (e) => {
+    this.setState({name: e.target.value})
+  }
+
+  imageChangeHandler = (e) => {
+    this.setState({image: e.target.value})
+  }
+
   render() {
     return (
       <div className="container">
-        <form className="add-toy-form">
+        <form onSubmit={(e) => this.props.submit(e, {name: this.state.name, image: this.state.image})} className="add-toy-form">
           <h3>Create a toy!</h3>
-          <input type="text" name="name" placeholder="Enter a toy's name..." className="input-text"/>
+          <input onChange={this.nameChangeHandler} type="text" name="name" placeholder="Enter a toy's name..." className="input-text"/>
           <br/>
-          <input type="text" name="image" placeholder="Enter a toy's image URL..." className="input-text"/>
+          <input onChange={this.imageChangeHandler} type="text" name="image" placeholder="Enter a toy's image URL..." className="input-text"/>
           <br/>
           <input type="submit" name="submit" value="Create New Toy" className="submit"/>
         </form>
